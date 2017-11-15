@@ -1,6 +1,6 @@
 {
   "name": "enkel",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "simple node api",
   "main": "index.js",
   "directories": {
