@@ -42,27 +42,21 @@ module.exports = class {
 
   init (loadPath) {
     const that = this
-    const groups = ls._caches.configs.groups;
+    const groups = enkel._caches.configs.groups;
     const objStr = Object.prototype.toString;
     if (objStr.call(groups) === '[object Array]' && groups.length > 0) {
       // let controllerJs = []
       groups.forEach(function (g) {
         let cls = that.walk(`${loadPath}/${g}/controller`);
-        if (!ls._caches.controllers.hasOwnProperty(g)) {
-          ls._caches.controllers[g] = {}
+        if (!enkel._caches.controllers.hasOwnProperty(g)) {
+          enkel._caches.controllers[g] = {}
           cls.forEach(function (ctrl) {
             let tempCtrl = require(`${ctrl}`);
-            // console.log('>>>>>>>>>>>>>>> cls: ', g, new tempCtrl());
-            // console.log('....basename: ', path.basename(ctrl, '.js'))
             let ctrlName = path.basename(ctrl, '.js');
-            ls._caches.controllers[g][ctrlName] = new tempCtrl();
+            enkel._caches.controllers[g][ctrlName] = new tempCtrl();
           });
         }
       });
-
-      // console.log('.......>>>>>>', ls._caches.controllers['Admin']);
-      // // ls._caches.controllers['Home']['indexAction']();
-      // ls._caches.controllers['Home']['index']['indexAction']();
     }
   }
 
