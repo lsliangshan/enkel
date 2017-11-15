@@ -33,8 +33,8 @@
 /**
  * Created by liangshan on 2017/11/13.
  */
-const co = require('co');
-const lodash = require('lodash');
+// const co = require('co');
+// const lodash = require('lodash');
 /**
  * Object.defineProperty
  *
@@ -63,47 +63,47 @@ const define = function (obj, property, value, setter = false) {
   }
 };
 
-/**
- *
- *
- * @param {any} obj
- * @returns
- */
-const isGenerator = function (obj) {
-  return !!(obj && typeof obj === 'function' && obj.constructor && obj.constructor.name === 'GeneratorFunction');
-}
+// /**
+//  *
+//  *
+//  * @param {any} obj
+//  * @returns
+//  */
+// const isGenerator = function (obj) {
+//   return !!(obj && typeof obj === 'function' && obj.constructor && obj.constructor.name === 'GeneratorFunction');
+// }
+//
+// /**
+//  * 将generator函数通过co转换为promise
+//  *
+//  * @param {Function} fn
+//  */
+// const generatorToPromise = function (fn) {
+//   if (typeof fn !== 'function') {
+//     throw Error('fn is not a function');
+//   }
+//   if (!isGenerator(fn)) {
+//     // assume it's Promise-based
+//     return fn;
+//   }
+//   return co.wrap(fn);
+// }
 
-/**
- * 将generator函数通过co转换为promise
- *
- * @param {Function} fn
- */
-const generatorToPromise = function (fn) {
-  if (typeof fn !== 'function') {
-    throw Error('fn is not a function');
-  }
-  if (!isGenerator(fn)) {
-    // assume it's Promise-based
-    return fn;
-  }
-  return co.wrap(fn);
-}
-
-/**
- * 继承
- *
- * @param {any} source
- * @param {any} target
- * @param {any} deep
- * @returns
- */
-const extend = function (source, target, deep = false) {
-  if (deep) {
-    return lodash.merge(lodash.cloneDeep(source), target);
-  } else {
-    return lodash.assignIn(source, target);
-  }
-}
+// /**
+//  * 继承
+//  *
+//  * @param {any} source
+//  * @param {any} target
+//  * @param {any} deep
+//  * @returns
+//  */
+// const extend = function (source, target, deep = false) {
+//   if (deep) {
+//     return lodash.merge(lodash.cloneDeep(source), target);
+//   } else {
+//     return lodash.assignIn(source, target);
+//   }
+// }
 
 /**
  * 检查对象是否为空
@@ -135,8 +135,8 @@ const isEmpty = function (obj) {
 
 module.exports = {
   define: define,
-  isGenerator: isGenerator,
-  generatorToPromise: generatorToPromise,
-  extend: extend,
+  // isGenerator: isGenerator,
+  // generatorToPromise: generatorToPromise,
+  // extend: extend,
   isEmpty: isEmpty
 }
