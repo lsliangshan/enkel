@@ -14,5 +14,8 @@
     "api"
   ],
   "author": "cheenoalive@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1"
+  }
 }
