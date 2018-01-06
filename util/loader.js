@@ -36,25 +36,42 @@
 const path = require('path');
 const fs = require('fs');
 module.exports = class {
-  constructor (loadPath, groups) {
-    this.init(loadPath, groups);
+  constructor (loadPath, groups, type) {
+    this.init(loadPath, groups, type);
   }
 
-  init (loadPath) {
+  init (loadPath, groups, type) {
     const that = this
-    const groups = enkel._caches.configs.groups;
+    const _groups = groups || enkel._caches.configs.groups;
     const objStr = Object.prototype.toString;
-    if (objStr.call(groups) === '[object Array]' && groups.length > 0) {
-      // let controllerJs = []
-      groups.forEach(function (g) {
-        let cls = that.walk(`${loadPath}/${g}/controller`);
-        if (!enkel._caches.controllers.hasOwnProperty(g)) {
-          enkel._caches.controllers[g] = {}
-          cls.forEach(function (ctrl) {
-            let tempCtrl = require(`${ctrl}`);
-            let ctrlName = path.basename(ctrl, '.js');
-            enkel._caches.controllers[g][ctrlName] = new tempCtrl();
-          });
+    if (objStr.call(_groups) === '[object Array]' && _groups.length > 0) {
+      _groups.forEach(function (g) {
+        if (type === 'models') {
+          // 加载 model
+          let cls2 = that.walk(`${loadPath}/${g}/model`);
+          if (!enkel._caches.models.hasOwnProperty(g)) {
+            enkel._caches.models[g] = {};
+            cls2.forEach(function (model) {
+              let tempModel = require(`${model}`);
+              let _basename = path.basename(model, '.js');
+              let modelName = _basename.replace(/^[a-zA-Z]/, function (item) {
+                  return item.toUpperCase()
+              });
+              enkel._caches.models[g][modelName] = enkel.db.define(_basename, tempModel.fields);
+              enkel._caches.models[g][modelName].sync({force: !tempModel.safe})
+            })
+          }
+        } else {
+          // 加载 控制器
+          let cls = that.walk(`${loadPath}/${g}/controller`);
+          if (!enkel._caches.controllers.hasOwnProperty(g)) {
+            enkel._caches.controllers[g] = {}
+            cls.forEach(function (ctrl) {
+              let tempCtrl = require(`${ctrl}`);
+              let ctrlName = path.basename(ctrl, '.js');
+              enkel._caches.controllers[g][ctrlName] = new tempCtrl();
+            });
+          }
         }
       });
     }

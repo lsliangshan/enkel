@@ -1,6 +1,6 @@
 {
   "name": "enkel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "simple node api",
   "main": "index.js",
   "directories": {
@@ -16,6 +16,8 @@
   "author": "cheenoalive@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.1"
+    "axios": "^0.17.1",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.29.0"
   }
 }
