@@ -60,6 +60,24 @@ module.exports = class {
               enkel._caches.models[g][modelName] = enkel.db.define(g.toLowerCase() + '_' + _basename, tempModel.fields);
               enkel._caches.models[g][modelName].sync({force: !tempModel.safe})
             })
+            // setTimeout(() => {
+            //     cls2.forEach(function (model) {
+            //         let tempModel = require(`${model}`);
+            //         let _basename = path.basename(model, '.js');
+            //         let modelName = _basename.replace(/^[a-zA-Z]/, function (item) {
+            //             return item.toUpperCase()
+            //         });
+            //         Object.keys(tempModel.relations).forEach(function (item) {
+            //             // console.log('======' + g + '=======', modelName, tempModel.relations[item], item.replace(/^[a-zA-Z]/, function (item) {
+            //             //     return item.toUpperCase()
+            //             // }))
+            //             console.log('.........' + g + '........', tempModel.relations[item].type, tempModel.relations[item])
+            //             enkel._caches.models[g][modelName][tempModel.relations[item].type](enkel._caches.models[g][item.replace(/^[a-zA-Z]/, function (itm) {
+            //                 return itm.toUpperCase()
+            //             })])
+            //         })
+            //     })
+            // }, 300)
           }
         } else {
           // 加载 控制器
