@@ -42,7 +42,7 @@ module.exports = class {
 
   init (loadPath, groups, type) {
     const that = this
-    const _groups = groups || enkel._caches.configs.groups;
+    const _groups = enkel._caches.configs.groups;
     const objStr = Object.prototype.toString;
     if (objStr.call(_groups) === '[object Array]' && _groups.length > 0) {
       _groups.forEach(function (g) {
@@ -57,7 +57,7 @@ module.exports = class {
               let modelName = _basename.replace(/^[a-zA-Z]/, function (item) {
                   return item.toUpperCase()
               });
-              enkel._caches.models[g][modelName] = enkel.db.define(_basename, tempModel.fields);
+              enkel._caches.models[g][modelName] = enkel.db.define(g.toLowerCase() + '_' + _basename, tempModel.fields);
               enkel._caches.models[g][modelName].sync({force: !tempModel.safe})
             })
           }
