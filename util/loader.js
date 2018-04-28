@@ -51,7 +51,7 @@ module.exports = class {
           let cls2 = that.walk(`${loadPath}/${g}/model`);
           if (!enkel._caches.models.hasOwnProperty(g)) {
             enkel._caches.models[g] = {};
-            cls2.forEach(function (model) {
+            cls2 && cls2.forEach(function (model) {
               let tempModel = require(`${model}`);
               let _basename = path.basename(model, '.js');
               let modelName = _basename.replace(/^[a-zA-Z]/, function (item) {
@@ -84,7 +84,7 @@ module.exports = class {
           let cls = that.walk(`${loadPath}/${g}/controller`);
           if (!enkel._caches.controllers.hasOwnProperty(g)) {
             enkel._caches.controllers[g] = {}
-            cls.forEach(function (ctrl) {
+            cls && cls.forEach(function (ctrl) {
               let tempCtrl = require(`${ctrl}`);
               let ctrlName = path.basename(ctrl, '.js');
               enkel._caches.controllers[g][ctrlName] = new tempCtrl();
